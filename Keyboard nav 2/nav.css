@@ -1,0 +1,30 @@
+*{margin:0;padding: 0;}
+a{text-decoration: none;}
+kbd{
+	width: 4em;height: 4em;
+	border: 1px solid #000;
+	display: inline-block;
+	text-transform: uppercase;
+	position: relative;
+}
+kbd>button{
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
+	display: none;
+}
+kbd:hover>button{
+	display: inline-block;
+}
+.main{
+	text-align: center;
+}
+.wrapper{
+	display: inline-block;
+}
+#x > div:nth-child(2){
+	margin-left: 1em;
+}  
+#x > div:nth-child(3){
+	margin-left: 2em;
+}

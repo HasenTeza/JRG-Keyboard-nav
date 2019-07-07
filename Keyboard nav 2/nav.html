@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>键盘导航</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="nav.css">
+</head>
+<body>
+<!--  -->
+<head></head>
+<!--  -->
+<main class="main">
+	<div class="wrapper" id="x"></div>
+</main>
+<!--  -->
+<footer></footer>
+<script >
+	var keys={
+		'0':{0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p', lenght:10},
+		'1':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',lenght:9},
+		'2':{0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',lenght:7},
+		'lenght':3
+	}
+	var hash={
+		'q':'https://www.baidu.com/','w':'https://www.baidu.com/', 'e':'https://www.baidu.com/', 'r':'https://www.baidu.com/',
+		't':'https://www.baidu.com/', 'y':'https://www.baidu.com/', 'u':'https://www.baidu.com/', 'i':'https://www.baidu.com/',
+	    'o':'https://www.baidu.com/', 'p':'https://www.baidu.com/', 'a':'https://www.baidu.com/', 's':'https://www.baidu.com/',
+		'd':'https://www.baidu.com/', 'f':'https://www.baidu.com/', 'g':'https://www.baidu.com/', 'h':'https://www.baidu.com/',
+	    'j':'https://www.baidu.com/', 'k':'https://www.baidu.com/', 'l':'https://www.baidu.com/', 'z':'https://www.baidu.com/', 
+	    'x':'https://www.baidu.com/', 'c':'https://www.baidu.com/', 'v':'https://www.baidu.com/', 'b':'https://www.baidu.com/', 
+	    'n':'https://www.baidu.com/', 'm':'https://www.baidu.com/'
+	    }
+	    // 取出浏览器中保存的uuu桶中hash覆盖现有的hash
+	    var hashInLocalStorage=JSON.parse(localStorage.getItem('uuu')||'null')
+	    if (hashInLocalStorage) {
+	    	hash=hashInLocalStorage
+	    }
+
+
+	    // 遍历keys生成kbd标签
+	i = 0//定义i在数组keys中遍历
+	while(i<keys.lenght){
+		div1=document.createElement('div')//创建一个标签
+		x.appendChild(div1)//将创建的标签所引导相应的id位置
+		row=keys[i]//将keys数组中的元素赋值给row
+		console.log(row)//打印出keys数组中的元素
+		i2=0
+		while(i2<row['lenght']){
+			div2=document.createElement('kbd')
+			div2.textContent=row[i2]//在标签中显示的内容
+			// 在按键上在加一个编辑按钮
+			button=document.createElement('button')
+			button.textContent='E'
+			button. id=row[i2]
+			button.onclick=function(zxcvbnm){
+				// console.log(zxcvbnm.target.id) 
+				key1= zxcvbnm.target.id//target是被用户点击的按钮函数【拿到用户是点击哪一个按钮】
+				y=prompt('请编辑按键的网址')//prompt是输入的内容框函数用来输入网址【输入按键对应的网址,存在y上】【ahsh网址变更】
+				hash[key1]=y//【把输入的网址付给hash数组的相对应按键上】
+
+				localStorage.setItem('uuu',JSON.stringify(hash))// 把变更后的的网址保存在localStorage(uuu)中【将变量存在浏览器中】，localStorage只能保存字符串，所以要强制转换成字符串
+				
+
+				
+			}
+			div2.appendChild(button)
+			div1.appendChild(div2)
+			i2=i2+1
+		}
+		i = i+1
+	}
+
+	// 监听鼠标事件
+	document.onkeypress=function(zxcvbnm){
+		key=zxcvbnm['key']//拿到zxcvbnm中点击的按键
+		website=hash[key]//拿到hash数组中相对应的key，key获取了点击的按键q d v.....
+		// location.href='http://'+website 
+		// 当前地址栏.地址栏地址【模拟当前一面打开网址】
+		window.open('http://'+website ,'_blank')
+		// 模拟新窗口打开网址
+	}
+</script>
+</body>
+</html>
