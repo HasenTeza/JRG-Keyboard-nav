@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>键盘导航</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="nav.css">
+</head>
+<body>
+<!--  -->
+<head class="nav clearfix">
+	<div class="search-nav ">
+		<div class="search">
+		<form name="s" action="http://www.baidu.com/s">  
+			<input type="text" id="q" name="wd" autocomplete="on" value="">
+			<input type="button" class="button" onclick="window.open('http://www.baidu.com/s?wd='+s.wd.value,'')" value="百度一下">
+			<input type="button" class="button" onclick="window.open('http://www.google.com/search?q='+s.wd.value,'')" value="谷歌搜索">
+		</form>
+		</div>
+	</div>
+	<div class="octo-peek">
+    	<a href=" https://hasenteza.github.io/Keyboard-nav/" rel="external">
+    	<span>Fork me on Github!</span></a>
+ 	</div>
+</head>
+<!--  -->
+<main class="main">
+	<div class="wrapper" id="x"></div>
+</main>
+<!--  -->
+<footer></footer>
+<script >
+	var keys={
+		'0':{0:'q',1:'w',2:'e',3:'r',4:'t',5:'y',6:'u',7:'i',8:'o',9:'p', lenght:10},
+		'1':{0:'a',1:'s',2:'d',3:'f',4:'g',5:'h',6:'j',7:'k',8:'l',lenght:9},
+		'2':{0:'z',1:'x',2:'c',3:'v',4:'b',5:'n',6:'m',lenght:7},
+		'lenght':3
+	}
+	var hash={
+		'q':'www.qiuziti.com/',
+		'w':'wallhaven.cc',
+		'e':'www.baidu.com',
+		'r':'www.baidu.com',
+		't':'login.taobao.com/', 
+		'y':'app.yinxiang.com', 
+		'u':'www.baidu.com',
+		'i':'www.iconfont.cn',
+	    'o':'www.baidu.com',
+	    'p':'www.baidu.com',
+	    'a':'www.ayqy.net/doc/css2-1/cover.html', 
+	    's':'www.baidu.com',
+		'd':'dribbble.com',
+		'f':'www.facebook.com/',
+		'g':'github.com/HasenTeza',  
+		'h':'www.baidu.com',
+	    'j':'www.jianshu.com/u/3a9eed461859',
+	    'k':'www.baidu.com',
+	    'l':'javascript.ruanyifeng.com/',
+	    'z':'www.zhihu.com/', 
+	    'x':'www.baidu.com', 
+	    'c':'echarts.baidu.com',
+	    'v':'cn.vuejs.org',
+	    'b':'ibaotu.com', 
+	    'n':'www.baidu.com', 
+	    'm':'www.baidu.com'
+	    }
+	    // 取出浏览器中保存的uuu桶中hash覆盖现有的hash
+	    var hashInLocalStorage=JSON.parse(localStorage.getItem('uuu')||'null')
+	    if (hashInLocalStorage) {
+	    	hash=hashInLocalStorage
+	    }
+
+
+
+
+ // 遍历keys生成kbd标签
+	i = 0//定义i在数组keys中遍历
+	while(i<keys.lenght){
+		div1=document.createElement('div')
+		//创建一个标签
+		div1.className='row'
+		x.appendChild(div1)//将创建的标签所引导相应的id位置
+		row=keys[i]//将keys数组中的元素赋值给row
+		// console.log(row)//打印出keys数组中的元素
+		i2=0
+		while(i2<row['lenght']){
+			div2=document.createElement('kbd')
+			span=document.createElement('span')
+			div2.appendChild(span)
+			span.className='text'
+			span.textContent=row[i2]//在标签中显示的内容(键盘上的字母)
+			div2.className='key'
+			// 在按键上在加一个编辑按钮
+			button=document.createElement('button')
+			button.textContent='E'
+			button. id=row[i2]
+			button.onclick=function(zxcvbnm){
+				// console.log(zxcvbnm.target.id)
+				key1=zxcvbnm.target.id//target是被用户点击的按钮函数【拿到用户是点击哪一个按钮】
+				y=prompt('请编辑按键的网址')//prompt是输入的内容框函数用来输入网址【输入按键对应的网址,存在y上】【ahsh网址变更】
+				hash[key1]=y//【把输入的网址付给hash数组的相对应按键上】
+	
+
+				localStorage.setItem('uuu',JSON.stringify(hash))// 把变更后的的网址保存在localStorage(uuu)中【将变量存在浏览器中】，localStorage只能保存字符串，所以要强制转换成字符串	
+			}
+			div2.appendChild(button)
+			div1.appendChild(div2)
+			i2=i2+1
+		}
+		i = i+1
+	} 
+
+	// 监听鼠标事件
+	document.onkeypress=function(zxcvbnm){
+		key=zxcvbnm['key']//拿到zxcvbnm中点击的按键
+		website=hash[key]//拿到hash数组中相对应的key，key获取了点击的按键q d v.....
+		// location.href='http://'+website 
+		// 当前地址栏.地址栏地址【模拟当前一面打开网址】
+		window.open('http://'+website ,'_blank')
+		// 模拟新窗口打开网址
+	}
+</script>
+</body>
+</html>
